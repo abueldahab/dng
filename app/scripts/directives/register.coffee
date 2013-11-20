@@ -1,5 +1,6 @@
 'use strict'
 html = """
+<div class="row">
   <div class="row">
     <div class="col-md-12">
       <form name="form" class="form" role="form" ng-submit="signup(form)" id="login-nav"
@@ -56,9 +57,11 @@ html = """
   </div>
   <div class="divider"></div>
   <div class="row">
-  <input class="btn btn-primary btn-block" type="button"
-  id="sign-in-facebook" value="Sign Up with Facebook">
+    <input class="btn btn-primary btn-block" type="button"
+    id="sign-in-facebook" value="Sign Up with Facebook">
+    </input>
   </div>
+</div>
 """
 
 controller = (root, scope)->
