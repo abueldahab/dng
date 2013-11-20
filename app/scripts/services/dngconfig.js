@@ -3,7 +3,7 @@
   "use strict";
   var Dngconfig;
 
-  angular.module("dngApp").service("Dngconfig", Dngconfig = function() {
+  angular.module("dng.parse").service("Dngconfig", Dngconfig = function() {
     var configs;
     configs = {};
     return configs;

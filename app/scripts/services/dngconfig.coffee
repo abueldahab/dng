@@ -1,5 +1,5 @@
 "use strict"
-angular.module("dngApp").service "Dngconfig", Dngconfig = ->
+angular.module("dng.parse").service "Dngconfig", Dngconfig = ->
     configs = {}
     return configs
 

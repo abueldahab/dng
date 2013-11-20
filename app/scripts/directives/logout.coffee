@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('dngApp')
+angular.module('dng.parse')
   .directive('logout', () ->
     template: '<div></div>'
     restrict: 'E'
