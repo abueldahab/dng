@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "dngconfig.js",
+  "sourceRoot": "",
+  "sources": [
+    "dngconfig.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;CAAA,CAAA,UAAA;CAAA,KAAA,GAAA;;CAAA,CACA,CAA0D,GAA1D,CAAO,CAAP,CAA8C,EAA9C;CACI,MAAA,CAAA;CAAA,CAAA,CAAU,CAAV,GAAA;CACA,MAAA,IAAO;CAFX,EAA0D;CAD1D"
+}
