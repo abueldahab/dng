@@ -41,7 +41,6 @@
       restrict: "E",
       replace: true,
       scope: true,
-      link: function(scope, elm, attrs, ctrl) {},
       controller: ['$rootScope', '$scope', controller]
     };
   });

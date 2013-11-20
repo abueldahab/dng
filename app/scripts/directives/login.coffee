@@ -39,6 +39,7 @@ html = """
   </div>
 </div>
 """
+
 controller = (root, scope)->
   scope.model = {}
   scope.signin = (form)->

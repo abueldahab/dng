@@ -95,7 +95,5 @@ angular.module("dng.parse").directive "register", ->
   restrict: "E"
   replace: yes
   scope: true
-  link: (scope, elm, attrs, ctrl) ->
-
   controller: ['$rootScope', '$scope', controller]
 
