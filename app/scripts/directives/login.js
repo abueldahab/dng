@@ -3,21 +3,28 @@
   'use strict';
   var controller, html;
 
-  html = "<div class=\"row\">\n  <div class=\"row\">\n    <div class=\"col-md-12\">\n      <form name=\"form\" class=\"form\" role=\"form\" ng-submit=\"signin(form)\" id=\"login-nav\"\n        novalidate>\n\n        <div class=\"form-group\">\n          <label class=\"sr-only\" for=\"email\">Email address</label>\n          <input name=\"email\" type=\"email\" class=\"form-control\" id=\"email\" ng-model=\"model.email\"\n          placeholder=\"Email address\" required>\n          <span ng-show=\"form.email.$error.required && form.email.$dirty\">\n            Email is required\n          </span>\n        </div>\n\n        <div class=\"form-group\">\n          <label class=\"sr-only\" for=\"password\">Password</label>\n          <input type=\"password\" class=\"form-control\" ng-model=\"model.password\"\n          name=\"password\"\n          id=\"password\" placeholder=\"Password\" required>\n          <span ng-show=\"form.password.$error.required &&\n            form.password.$dirty\">Password is required</span>\n        </div>\n\n        <div class=\"form-group\">\n          <button type=\"submit\" class=\"btn btn-success btn-block\">Sign in</button>\n        </div>\n      </form>\n    </div>\n  </div>\n  <div class=\"divider\"></<div>\n  <div class=\"row\">\n    <input class=\"btn btn-primary btn-block\" type=\"button\"\n    id=\"sign-in-facebook\" value=\"Sign In with Facebook\">\n    </input>\n  </div>\n</div>";
+  html = "<div class=\"row\">\n  <div class=\"row\">\n    <form name=\"form\" class=\"form\" role=\"form\" ng-submit=\"signin(form)\" id=\"login\"\n      novalidate>\n\n      <div class=\"alert alert-danger\" ng-show=\"error\">\n        {{error}}\n      </div>\n\n      <div class=\"form-group\">\n        <label class=\"sr-only\" for=\"email\">Email address</label>\n        <input name=\"email\" type=\"email\" class=\"form-control\" id=\"email\" ng-model=\"model.email\"\n        placeholder=\"Email address\" required>\n        <span ng-show=\"form.email.$error.required && form.email.$dirty\">\n          Email is required\n        </span>\n      </div>\n\n      <div class=\"form-group\">\n        <label class=\"sr-only\" for=\"password\">Password</label>\n        <input type=\"password\" class=\"form-control\" ng-model=\"model.password\"\n        name=\"password\"\n        id=\"password\" placeholder=\"Password\" required>\n        <span ng-show=\"form.password.$error.required && form.password.$dirty\">\n        Password is required\n        </span>\n      </div>\n\n      <div class=\"form-group\">\n        <button type=\"submit\" class=\"btn btn-success btn-block\">Sign in</button>\n      </div>\n    </form>\n  </div>\n  <div class=\"divider\" ng-show=\"social\"></<div>\n  <div class=\"row\" ng-show=\"facebook\">\n    <input class=\"btn btn-primary btn-block\" type=\"button\"\n    id=\"sign-in-facebook\" value=\"Sign In with Facebook\">\n    </input>\n  </div>\n</div>";
 
   controller = function(root, scope) {
     scope.model = {};
     return scope.signin = function(form) {
       if (form.$invalid) {
+        scope.error = "Please, fix errors.";
         return;
       }
       return Parse.User.logIn(scope.model.email, scope.model.password, {
         success: function(user) {
           root.user = user;
-          return root.go('/');
+          return scope.$apply(function() {
+            scope.onSuccess(user);
+            return scope.error = null;
+          });
         },
         error: function(user, error) {
-          return alert("Invalid username or password. Please try again.");
+          return scope.$apply(function() {
+            scope.error = "Invalid username or password. Please try again.";
+            return scope.onError(user, error);
+          });
         }
       });
     };
@@ -28,7 +35,12 @@
       template: html,
       restrict: "E",
       replace: true,
-      scope: true,
+      scope: {
+        onError: "&error",
+        onSuccess: "&success",
+        social: "=social",
+        facebook: "=facebook"
+      },
       controller: ['$rootScope', '$scope', controller]
     };
   });
