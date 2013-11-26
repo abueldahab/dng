@@ -91,12 +91,12 @@ controller = (root, scope)->
       success: (user) ->
         root.user = user
         scope.$apply ->
-          scope.onSuccess(user)
+          scope.onSuccess?(user)
           scope.error = null
       ,
       error: (user, error) ->
         scope.$apply ->
-          scope.onError(user, error)
+          scope.onError?(user, error)
 
 
 angular.module("dng.parse").directive "register", ->

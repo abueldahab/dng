@@ -54,13 +54,13 @@ controller = (root, scope)->
       success: (user) ->
         root.user = user
         scope.$apply ->
-          scope.onSuccess(user)
+          scope.onSuccess?(user)
           scope.error = null
       ,
       error: (user, error) ->
         scope.$apply ->
           scope.error = "Invalid username or password. Please try again."
-          scope.onError(user, error)
+          scope.onError?(user, error)
 
 angular.module("dng.parse").directive "login", ->
   template: html

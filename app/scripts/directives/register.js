@@ -29,13 +29,15 @@
         success: function(user) {
           root.user = user;
           return scope.$apply(function() {
-            scope.onSuccess(user);
+            if (typeof scope.onSuccess === "function") {
+              scope.onSuccess(user);
+            }
             return scope.error = null;
           });
         },
         error: function(user, error) {
           return scope.$apply(function() {
-            return scope.onError(user, error);
+            return typeof scope.onError === "function" ? scope.onError(user, error) : void 0;
           });
         }
       });
