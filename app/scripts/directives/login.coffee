@@ -1,7 +1,7 @@
 'use strict'
 
 html = """
-<div class="row">
+<div class="row signin">
   <div class="row">
     <form name="form" class="form" role="form" ng-submit="signin(form)" id="login"
       novalidate>
